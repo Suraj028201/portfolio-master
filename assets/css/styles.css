@@ -896,6 +896,9 @@ img {
   color: #fff;
 }
 
+.footer__link{
+  width: 6rem;
+}
 
 
 /*========== SCROLL UP ==========*/

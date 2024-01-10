@@ -48,9 +48,9 @@ function toggleSkills() {
     }
 }
 
-skillsHeader.forEach((e) => {
-    e.addEventListener('click', toggleSkills)
-})
+// skillsHeader.forEach((e) => {
+//     e.addEventListener('click', toggleSkills)
+// })
 
 
 
