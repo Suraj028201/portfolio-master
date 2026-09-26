@@ -1,30 +1,36 @@
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## I Learned from this project :
-> How to use HTML tags effectively.
+## Getting Started
 
-> How to use div element to manipulate css.
+First, run the development server:
 
-> How to target a particular section on page.
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
 
-> How to validate HTML form and send data to desired email id.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-> How to download pdf by using anchorTag download option.
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-> How to apply text typing animation.
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-> How to use slider.
+## Learn More
 
-> How to apply dark mode on a website. 
+To learn more about Next.js, take a look at the following resources:
 
-## Technology that are used :
-> HTML for structuring the document.
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-> CSS for styling the document.
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-> JavaScript for Logic such as submit form, send email, Change website theme.
+## Deploy on Vercel
 
-> Typed Js for text typing animation on home page.
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-> Swiper Js for using slider on portfolio page.
-
-> SMTP server for sending form data to email in contact form.
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.

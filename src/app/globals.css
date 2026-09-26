@@ -1,0 +1,481 @@
+@import "tailwindcss";
+
+:root {
+  --background: #030308;
+  --foreground: #e8e8ff;
+  --neon-cyan: #00f5ff;
+  --neon-magenta: #ff00aa;
+  --neon-violet: #a855f7;
+  --neon-lime: #39ff14;
+  --card: rgba(8, 10, 22, 0.85);
+  --hud-line: rgba(0, 245, 255, 0.35);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-space-grotesk);
+  --font-display: var(--font-orbitron);
+  --font-mono: var(--font-geist-mono);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-space-grotesk), system-ui, sans-serif;
+}
+
+.font-display {
+  font-family: var(--font-orbitron), system-ui, sans-serif;
+}
+
+.nebula-bg {
+  background:
+    radial-gradient(ellipse 70% 45% at 15% -5%, rgba(168, 85, 247, 0.28), transparent),
+    radial-gradient(ellipse 55% 35% at 95% 5%, rgba(0, 245, 255, 0.14), transparent),
+    radial-gradient(ellipse 45% 25% at 50% 105%, rgba(255, 0, 170, 0.1), transparent),
+    var(--background);
+}
+
+.glass-card {
+  background: var(--card);
+  border: 1px solid rgba(0, 245, 255, 0.12);
+  backdrop-filter: blur(14px);
+}
+
+/* —— Game panel (HUD frame) —— */
+.game-panel {
+  position: relative;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 245, 255, 0.04) 0%,
+    rgba(168, 85, 247, 0.06) 50%,
+    rgba(255, 0, 170, 0.03) 100%
+  );
+  border: 1px solid rgba(0, 245, 255, 0.18);
+  box-shadow:
+    0 0 30px rgba(0, 245, 255, 0.06),
+    inset 0 0 40px rgba(0, 0, 0, 0.4);
+}
+
+.game-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 40%,
+    rgba(0, 245, 255, 0.06) 50%,
+    transparent 60%
+  );
+  background-size: 200% 100%;
+  animation: panel-shine 6s ease-in-out infinite;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+@keyframes panel-shine {
+  0%,
+  100% {
+    background-position: 200% 0;
+  }
+  50% {
+    background-position: -200% 0;
+  }
+}
+
+.corner-bracket {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-color: var(--neon-cyan);
+  border-style: solid;
+  opacity: 0.85;
+  pointer-events: none;
+}
+
+.corner-bracket.tl {
+  top: -1px;
+  left: -1px;
+  border-width: 2px 0 0 2px;
+}
+.corner-bracket.tr {
+  top: -1px;
+  right: -1px;
+  border-width: 2px 2px 0 0;
+}
+.corner-bracket.bl {
+  bottom: -1px;
+  left: -1px;
+  border-width: 0 0 2px 2px;
+}
+.corner-bracket.br {
+  bottom: -1px;
+  right: -1px;
+  border-width: 0 2px 2px 0;
+}
+
+/* —— Glitch text —— */
+.glitch-text {
+  position: relative;
+  text-shadow:
+    0 0 20px rgba(0, 245, 255, 0.5),
+    0 0 40px rgba(168, 85, 247, 0.3);
+}
+
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.glitch-text:hover::before,
+.glitch-text.glitch-active::before {
+  animation: glitch-1 0.35s linear;
+  color: var(--neon-cyan);
+  opacity: 0.8;
+  clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%);
+  transform: translate(-2px, 0);
+}
+
+.glitch-text:hover::after,
+.glitch-text.glitch-active::after {
+  animation: glitch-2 0.35s linear;
+  color: var(--neon-magenta);
+  opacity: 0.8;
+  clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%);
+  transform: translate(2px, 0);
+}
+
+@keyframes glitch-1 {
+  0% {
+    transform: translate(0);
+  }
+  20% {
+    transform: translate(-3px, 1px);
+  }
+  40% {
+    transform: translate(3px, -1px);
+  }
+  60% {
+    transform: translate(-2px, 0);
+  }
+  100% {
+    transform: translate(0);
+  }
+}
+
+@keyframes glitch-2 {
+  0% {
+    transform: translate(0);
+  }
+  25% {
+    transform: translate(4px, 0);
+  }
+  50% {
+    transform: translate(-4px, 1px);
+  }
+  100% {
+    transform: translate(0);
+  }
+}
+
+/* —— Arcade button —— */
+.btn-arcade {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.65rem 1.5rem;
+  font-family: var(--font-orbitron), system-ui, sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #fff;
+  background: linear-gradient(180deg, #7c3aed 0%, #4c1d95 100%);
+  border: 2px solid var(--neon-cyan);
+  box-shadow:
+    0 0 20px rgba(0, 245, 255, 0.35),
+    0 4px 0 #1e1b4b,
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transition:
+    transform 0.1s ease,
+    box-shadow 0.15s ease;
+}
+
+.btn-arcade:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 0 30px rgba(0, 245, 255, 0.55),
+    0 6px 0 #1e1b4b,
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+.btn-arcade:active {
+  transform: translateY(2px);
+  box-shadow:
+    0 0 15px rgba(0, 245, 255, 0.4),
+    0 2px 0 #1e1b4b;
+}
+
+.btn-arcade-secondary {
+  background: transparent;
+  color: var(--neon-cyan);
+  box-shadow:
+    0 0 12px rgba(0, 245, 255, 0.2),
+    0 4px 0 rgba(0, 245, 255, 0.15);
+}
+
+.btn-arcade-secondary:hover {
+  background: rgba(0, 245, 255, 0.08);
+}
+
+/* —— XP / stat bars —— */
+.stat-bar-track {
+  height: 6px;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(0, 245, 255, 0.2);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.stat-bar-fill {
+  height: 100%;
+  border-radius: 1px;
+  background: linear-gradient(90deg, #7c3aed, var(--neon-cyan));
+  box-shadow: 0 0 12px rgba(0, 245, 255, 0.6);
+  transform-origin: left;
+}
+
+/* —— Scanlines + vignette —— */
+.scanlines {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.12) 2px,
+    rgba(0, 0, 0, 0.12) 4px
+  );
+  opacity: 0.35;
+}
+
+.vignette {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 39;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 50%,
+    rgba(0, 0, 0, 0.55) 100%
+  );
+}
+
+/* —— Quest badge —— */
+.quest-badge {
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.5rem;
+  border: 1px solid;
+}
+
+.quest-badge.active {
+  color: var(--neon-lime);
+  border-color: rgba(57, 255, 20, 0.5);
+  background: rgba(57, 255, 20, 0.08);
+  animation: pulse-badge 2s ease-in-out infinite;
+}
+
+.quest-badge.cleared {
+  color: var(--neon-cyan);
+  border-color: rgba(0, 245, 255, 0.4);
+  background: rgba(0, 245, 255, 0.06);
+}
+
+@keyframes pulse-badge {
+  0%,
+  100% {
+    box-shadow: 0 0 8px rgba(57, 255, 20, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 16px rgba(57, 255, 20, 0.6);
+  }
+}
+
+@keyframes float-y {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.animate-float {
+  animation: float-y 4s ease-in-out infinite;
+}
+
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.ring-scan {
+  animation: spin-slow 8s linear infinite;
+}
+
+::selection {
+  background: rgba(0, 245, 255, 0.35);
+  color: #fff;
+}
+
+.css-starfield {
+  background:
+    radial-gradient(1px 1px at 10% 20%, rgba(255, 255, 255, 0.45), transparent),
+    radial-gradient(1px 1px at 40% 60%, rgba(255, 255, 255, 0.35), transparent),
+    radial-gradient(1px 1px at 70% 30%, rgba(255, 255, 255, 0.4), transparent),
+    radial-gradient(1px 1px at 90% 80%, rgba(255, 255, 255, 0.3), transparent),
+    var(--background);
+  animation: star-drift 60s linear infinite;
+}
+
+@keyframes star-drift {
+  from {
+    background-position:
+      0 0,
+      0 0,
+      0 0,
+      0 0;
+  }
+  to {
+    background-position:
+      0 120px,
+      0 80px,
+      0 160px,
+      0 100px;
+  }
+}
+
+.logo-spin {
+  animation: spin-slow 8s linear infinite;
+}
+
+.section-line-grow {
+  animation: line-grow 0.8s ease-out forwards;
+  transform-origin: left;
+  transform: scaleX(0);
+}
+
+@keyframes line-grow {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.btn-shimmer {
+  overflow: hidden;
+}
+
+.btn-shimmer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 35%,
+    rgba(255, 255, 255, 0.25) 50%,
+    transparent 65%
+  );
+  transform: translateX(-120%);
+  animation: btn-shimmer 3s ease-in-out infinite;
+}
+
+@keyframes btn-shimmer {
+  0%,
+  70%,
+  100% {
+    transform: translateX(-120%);
+  }
+  85% {
+    transform: translateX(120%);
+  }
+}
+
+.avatar-glow {
+  animation: avatar-glow 2.5s ease-in-out infinite;
+}
+
+@keyframes avatar-glow {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.avatar-pulse {
+  animation: avatar-pulse 2s ease-in-out infinite;
+}
+
+@keyframes avatar-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.06);
+  }
+}
+
+.avatar-scanline {
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0, 245, 255, 0.12) 48%,
+    rgba(0, 245, 255, 0.2) 50%,
+    rgba(0, 245, 255, 0.12) 52%,
+    transparent 100%
+  );
+  background-size: 100% 200%;
+  animation: avatar-scan 3s linear infinite;
+}
+
+@keyframes avatar-scan {
+  0% {
+    background-position: 0 -100%;
+  }
+  100% {
+    background-position: 0 200%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
